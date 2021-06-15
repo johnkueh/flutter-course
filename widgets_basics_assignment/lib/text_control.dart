@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment/text_label.dart';
 
 class TextControl extends StatefulWidget {
   const TextControl({Key? key}) : super(key: key);
@@ -7,9 +8,24 @@ class TextControl extends StatefulWidget {
   _TextControlState createState() => _TextControlState();
 }
 
+const textStrings = [
+  "Welcome to my app",
+  "Having fun clicking the button?",
+  "Please click the button again",
+  "Great to know you"
+];
+
 class _TextControlState extends State<TextControl> {
+  var _selectedIndex = 0;
+
   void _onPressed() {
-    print('Pressed button');
+    setState(() {
+      if (_selectedIndex < textStrings.length - 1) {
+        _selectedIndex += 1;
+      } else {
+        _selectedIndex = 0;
+      }
+    });
   }
 
   @override
@@ -17,10 +33,7 @@ class _TextControlState extends State<TextControl> {
     return Column(children: [
       Container(
           padding: EdgeInsets.all(20),
-          child: Text(
-            "A string of text here",
-            style: TextStyle(fontSize: 30),
-          )),
+          child: TextLabel(title: textStrings[_selectedIndex])),
       ElevatedButton(
         onPressed: _onPressed,
         child: Text("Button"),
